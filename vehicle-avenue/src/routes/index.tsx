@@ -87,6 +87,22 @@ function Catalogo() {
         </p>
       </section>
 
+      {/* DASHBOARD RESPONSIVO DE LOOKER STUDIO */}
+      <section className="fade-up mb-10 w-full overflow-hidden rounded-2xl border-2 border-ink bg-card shadow-lg">
+        <div className="border-b-2 border-ink bg-muted/50 p-4">
+          <h2 className="text-lg font-bold">Análisis e Inteligencia de Datos</h2>
+        </div>
+        <div className="relative w-full min-h-[500px] md:min-h-[600px] overflow-hidden">
+          <iframe
+            src="https://datastudio.google.com/embed/reporting/a90c8d91-5ba7-4881-8648-2b818da48240/page/CqyAG"
+            className="absolute inset-0 h-full w-full border-0"
+            allowFullScreen
+            sandbox="allow-storage-access-by-user-activation allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox"
+            title="Dashboard Looker Studio"
+          />
+        </div>
+      </section>
+
       <div className="card-pop mb-8 flex flex-col gap-4 p-4 md:flex-row md:items-center">
         <div className="flex flex-wrap gap-2">
           {categorias.map((c) => (
