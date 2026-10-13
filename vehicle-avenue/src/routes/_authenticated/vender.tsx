@@ -43,11 +43,27 @@ function Vender() {
 
   async function crearTienda(e: React.FormEvent) {
     e.preventDefault();
+    
+    // Limpieza de datos: convierte strings vacíos a null para evitar violaciones UNIQUE
+    const datosTienda = {
+      nombre_comercial: tienda.nombre_comercial,
+      telefono: tienda.telefono,
+      ciudad: tienda.ciudad,
+      nit: tienda.nit.trim() === "" ? null : tienda.nit.trim(),
+      user_id: user.id,
+      email: user.email ?? null,
+    };
+
     const { error } = await supabase.from("vendedores").upsert(
-      { ...tienda, user_id: user.id, email: user.email ?? null },
+      datosTienda,
       { onConflict: "user_id" }
     );
-    if (error) { toast.error(error.message); return; }
+
+    if (error) { 
+      toast.error(`Error: ${error.message}`); 
+      return; 
+    }
+
     toast.success("¡Ya eres vendedor!");
     qc.invalidateQueries({ queryKey: ["mi-vendedor"] });
   }
