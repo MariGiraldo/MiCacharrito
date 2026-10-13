@@ -43,7 +43,10 @@ function Vender() {
 
   async function crearTienda(e: React.FormEvent) {
     e.preventDefault();
-    const { error } = await supabase.from("vendedores").insert({ ...tienda, user_id: user.id, email: user.email ?? null });
+    const { error } = await supabase.from("vendedores").upsert(
+      { ...tienda, user_id: user.id, email: user.email ?? null },
+      { onConflict: "user_id" }
+    );
     if (error) { toast.error(error.message); return; }
     toast.success("¡Ya eres vendedor!");
     qc.invalidateQueries({ queryKey: ["mi-vendedor"] });
